@@ -28,7 +28,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["uv", "run", "python", "migrations/migrator.py"]
+    command: [ "uv", "run", "python", "migrations/migrator.py" ]
     networks:
       - main
 
@@ -51,6 +51,13 @@ services:
       retries: 3
     networks:
       - main
+
+  frontend:
+    container_name: lor-frontend
+    build: ./frontend
+    ports:
+      - "80:80"
+    restart: on-failure
 
 volumes:
   postgres-data:

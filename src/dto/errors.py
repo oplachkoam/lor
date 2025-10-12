@@ -11,3 +11,9 @@ class NameAlreadyExists(HTTPException):
     def __init__(self):
         super().__init__(status_code=status.HTTP_409_CONFLICT,
                          detail="Name already exists")
+
+
+class LocationNotFound(HTTPException):
+    def __init__(self):
+        super().__init__(status_code=status.HTTP_404_NOT_FOUND,
+                         detail="Location not found")

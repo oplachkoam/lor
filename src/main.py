@@ -6,6 +6,7 @@ from uvicorn import run
 
 from src.database.postgres import Postgres
 from src.routes.characters import router as characters_router
+from src.routes.locations import router as locations_router
 
 
 @asynccontextmanager
@@ -27,6 +28,7 @@ app.add_middleware(
 
 router = APIRouter(prefix="/api")
 app.include_router(characters_router)
+app.include_router(locations_router)
 app.include_router(router)
 
 

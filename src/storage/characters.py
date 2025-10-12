@@ -37,6 +37,16 @@ class CharactersRepository:
             return Character(**row) if row else None
 
     @staticmethod
+    async def get_by_name(name: str) -> Optional[Character]:
+        pool = await Postgres.pool()
+
+        async with pool.acquire() as conn:
+            query = ("SELECT id, name, description, created_at "
+                     "FROM characters WHERE name = $1")
+            row = await conn.fetchrow(query, name)
+            return Character(**row) if row else None
+
+    @staticmethod
     async def list() -> List[Character]:
         pool = await Postgres.pool()
 

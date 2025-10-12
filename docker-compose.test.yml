@@ -1,0 +1,38 @@
+name: lor-test
+
+services:
+  postgres-test:
+    container_name: lor-postgres-test
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test -d test"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - test
+
+  migrator-test:
+    container_name: lor-migrator-test
+    build: .
+    environment:
+      POSTGRES_URL: postgresql://test:test@postgres-test:5432/test
+      MIGRATIONS_DIR: /server/migrations
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    command: ["uv", "run", "python", "migrations/migrator.py"]
+    networks:
+      - test
+
+networks:
+  test:
+    name: lor-test-net
+    driver: bridge
+

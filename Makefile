@@ -14,7 +14,11 @@ logs:
 
 test:
 	@echo "==> Тесты"
+	docker-compose -f docker-compose.test.yml down -v
+	docker-compose -f docker-compose.test.yml up -d
+	sleep 10
 	uv run pytest test
+	docker compose -f docker-compose.test.yml down -v
 
 start:
 	@echo "==> Запуск"

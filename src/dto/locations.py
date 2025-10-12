@@ -9,6 +9,7 @@ class CreateLocationRequest(BaseModel):
     character_id: UUID = Field(..., description="ID персонажа")
     x: float = Field(..., description="Координата X")
     y: float = Field(..., description="Координата Y")
+    created_at: datetime = Field(..., description="Время создания локации")
 
 
 class LocationResponse(BaseModel):

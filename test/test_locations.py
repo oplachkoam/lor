@@ -1,5 +1,6 @@
 import pytest
 
+from datetime import datetime
 from uuid import UUID
 from httpx import AsyncClient
 
@@ -22,7 +23,8 @@ class TestLocations:
             json={
                 "character_id": character_id,
                 "x": 10.5,
-                "y": 20.3
+                "y": 20.3,
+                "created_at": datetime.now().isoformat()
             }
         )
 
@@ -44,7 +46,8 @@ class TestLocations:
             json={
                 "character_id": fake_id,
                 "x": 10.5,
-                "y": 20.3
+                "y": 20.3,
+                "created_at": datetime.now().isoformat()
             }
         )
 
@@ -64,15 +67,18 @@ class TestLocations:
 
         await client.post(
             "/api/locations",
-            json={"character_id": character_id, "x": 1.0, "y": 1.0}
+            json={"character_id": character_id, "x": 1.0, "y": 1.0,
+                  "created_at": datetime.now().isoformat()}
         )
         await client.post(
             "/api/locations",
-            json={"character_id": character_id, "x": 2.0, "y": 2.0}
+            json={"character_id": character_id, "x": 2.0, "y": 2.0,
+                  "created_at": datetime.now().isoformat()}
         )
         await client.post(
             "/api/locations",
-            json={"character_id": character_id, "x": 3.0, "y": 3.0}
+            json={"character_id": character_id, "x": 3.0, "y": 3.0,
+                  "created_at": datetime.now().isoformat()}
         )
 
         response = await client.get(f"/api/locations/{character_id}")
@@ -103,7 +109,8 @@ class TestLocations:
 
         loc_response = await client.post(
             "/api/locations",
-            json={"character_id": character_id, "x": 5.0, "y": 5.0}
+            json={"character_id": character_id, "x": 5.0, "y": 5.0,
+                  "created_at": datetime.now().isoformat()}
         )
         location_id = loc_response.json()["id"]
 

@@ -25,7 +25,7 @@ async def create_location(request: CreateLocationRequest):
         character_id=request.character_id,
         x=request.x,
         y=request.y,
-        created_at=datetime.now()
+        created_at=request.created_at
     )
 
     await LocationsRepository.create(location)

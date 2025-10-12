@@ -22,7 +22,8 @@
   
   let formData = {
     x: 0,
-    y: 0
+    y: 0,
+    created_at: ''
   };
 
   async function fetchCharacter() {
@@ -87,7 +88,8 @@
         body: JSON.stringify({
           character_id: characterId,
           x: parseFloat(formData.x),
-          y: parseFloat(formData.y)
+          y: parseFloat(formData.y),
+          created_at: new Date(formData.created_at).toISOString()
         })
       });
       
@@ -134,13 +136,17 @@
   }
 
   function openCreateModal() {
-    formData = { x: 0, y: 0 };
+    const now = new Date();
+    const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 16);
+    formData = { x: 0, y: 0, created_at: localDateTime };
     showModal = true;
   }
 
   function closeModal() {
     showModal = false;
-    formData = { x: 0, y: 0 };
+    formData = { x: 0, y: 0, created_at: '' };
   }
 
   // Функция для создания плавной кривой между точками (Catmull-Rom)
@@ -428,6 +434,15 @@
             min="-100"
             max="100"
             placeholder="От -100 до 100"
+          />
+        </div>
+        <div class="form-group">
+          <label for="created_at">Время создания</label>
+          <input 
+            id="created_at"
+            type="datetime-local" 
+            bind:value={formData.created_at}
+            required
           />
         </div>
         <div class="modal-actions">

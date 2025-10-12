@@ -1,10 +1,11 @@
-import uvicorn
-
 from contextlib import asynccontextmanager
+
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from uvicorn import run
 
 from src.database.postgres import Postgres
+from src.routes.characters import router as characters_router
 
 
 @asynccontextmanager
@@ -25,6 +26,7 @@ app.add_middleware(
 )
 
 router = APIRouter(prefix="/api")
+app.include_router(characters_router)
 app.include_router(router)
 
 
@@ -34,4 +36,4 @@ async def ping():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    run(app, host="0.0.0.0", port=8000)

@@ -158,7 +158,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "asyncpg", specifier = ">=0.30.0" },
-    { name = "fastapi", specifier = ">=0.119.0" },
+    { name = "fastapi", specifier = ">=0.118.3" },
     { name = "uvicorn", specifier = ">=0.37.0" },
 ]
 

@@ -27,8 +27,8 @@ app.add_middleware(
 )
 
 router = APIRouter(prefix="/api")
-app.include_router(characters_router)
-app.include_router(locations_router)
+router.include_router(characters_router)
+router.include_router(locations_router)
 app.include_router(router)
 
 

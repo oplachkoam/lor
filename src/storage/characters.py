@@ -14,7 +14,7 @@ class Character(BaseModel):
     created_at: datetime
 
 
-class Users:
+class CharactersRepository:
     @staticmethod
     async def create(character: Character) -> None:
         pool = await Postgres.pool()

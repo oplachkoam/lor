@@ -15,7 +15,7 @@ class Location(BaseModel):
     created_at: datetime
 
 
-class Locations:
+class LocationsRepository:
     @staticmethod
     async def create(location: Location) -> None:
         pool = await Postgres.pool()

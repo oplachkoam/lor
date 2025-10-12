@@ -21,7 +21,7 @@ class CharactersRepository:
 
         async with pool.acquire() as conn:
             query = ("INSERT INTO characters (id, name, description, "
-                     "created_at) VALUES ($1, $2, $3)")
+                     "created_at) VALUES ($1, $2, $3, $4)")
             await conn.execute(
                 query, character.id, character.name,
                 character.description, character.created_at)
